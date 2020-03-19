@@ -27,12 +27,12 @@ $ main.py
 ```
 
 
-```
+
 
 ### Todos
 
- - Create more items
- - Add Red Magic
- - Add AI to the enemy
- - Add more than 1 Party Member
- - Add more than 1 Enemy
+1. [ ] Create more items
+2. [ ] Add Red Magic
+3. [ ] AI to the enemy
+4. [ ] more than 1 Party Member
+5. [ ] more than 1 Enemy
