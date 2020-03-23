@@ -11,6 +11,9 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+class formatting:
+    INDENT = '    '
+
 class Person:
     def __init__(self, hp, mp, atk, df, magic, items):
         self.maxhp = hp
@@ -57,21 +60,21 @@ class Person:
         i = 1
         print("Actions:")
         for item in self.actions:
-            print(f'{i}. {item}')
+            print(f'{formatting.INDENT}{i}. {item}')
             i += 1
 
     def choose_magic(self):
         i = 1
         print(f"{bcolors.OKBLUE}MAGIC:{bcolors.ENDC}")
         for spell in self.magic:
-            print(f'{i}. {spell.name} (cost: {spell.cost})')
+            print(f'{formatting.INDENT}{i}. {spell.name} (cost: {spell.cost})')
             i += 1
 
     def choose_items(self):
         i = 1
         print(f"{bcolors.OKGREEN}{bcolors.BOLD}ITEMS:{bcolors.ENDC}")
         for item in self.items:
-            print(f'{i}. {item.name}: {item.description} (x5)')
+            print(f'{formatting.INDENT}{i}. {item.name}: {item.description} (x5)')
             i += 1
 
 
