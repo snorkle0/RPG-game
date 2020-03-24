@@ -1,6 +1,7 @@
 import random
 from .magic import Spell
 
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -11,8 +12,11 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+
 class formatting:
     INDENT = '    '
+    NEWLINE = '\n'
+
 
 class Person:
     def __init__(self, hp, mp, atk, df, magic, items):
@@ -58,23 +62,23 @@ class Person:
 
     def choose_action(self):
         i = 1
-        print("Actions:")
+        print(f"{formatting.NEWLINE}{bcolors.OKBLUE}{bcolors.BOLD}Actions:{bcolors.ENDC}")
         for item in self.actions:
             print(f'{formatting.INDENT}{i}. {item}')
             i += 1
 
     def choose_magic(self):
         i = 1
-        print(f"{bcolors.OKBLUE}MAGIC:{bcolors.ENDC}")
+        print(f"{formatting.NEWLINE}{bcolors.OKBLUE}{bcolors.BOLD}MAGIC:{bcolors.ENDC}")
         for spell in self.magic:
             print(f'{formatting.INDENT}{i}. {spell.name} (cost: {spell.cost})')
             i += 1
 
     def choose_items(self):
         i = 1
-        print(f"{bcolors.OKGREEN}{bcolors.BOLD}ITEMS:{bcolors.ENDC}")
+        print(f"{formatting.NEWLINE}{bcolors.OKGREEN}{bcolors.BOLD}ITEMS:{bcolors.ENDC}")
         for item in self.items:
-            print(f'{formatting.INDENT}{i}. {item.name}: {item.description} (x5)')
+            print(f'{formatting.INDENT}{i}. {item["item"].name}: {item["item"].description} (x{item["quantity"]})')
             i += 1
 
 

@@ -1,4 +1,4 @@
-from classes.game import Person, bcolors
+from classes.game import Person, bcolors, formatting
 from classes.magic import Spell
 from classes.inventory import Item
 
@@ -23,7 +23,8 @@ megaelixir = Item('MegaElixir', 'elixir', "Fully restores party's HP/MP", 9999)
 grenade = Item('Grenade', 'attack', 'Deals 500 damage', 500)
 
 player_spells = [fire, thunder, blizzard, meteor, quake, cure, cura]
-player_items = [potion, hipotion, superpotion, elixir, megaelixir, grenade]
+player_items = [{'item': potion, 'quantity': 15}, {'item': hipotion, 'quantity': 5}, {'item': superpotion, 'quantity': 1},
+                {'item': elixir, 'quantity': 5}, {'item': megaelixir, 'quantity': 1}, {'item': grenade, 'quantity': 10}]
 
 # Instantiate People:
 player = Person(460, 65, 60, 34, player_spells, player_items)
@@ -47,6 +48,9 @@ while running:
     elif index == 1:
         player.choose_magic()
         magic_choice = int(input('Choose magic: ')) - 1
+
+        if magic_choice == -1:
+            continue
 
         spell = player.magic[magic_choice]
         magic_dmg = spell.generate_damage()
@@ -72,9 +76,27 @@ while running:
         player.choose_items()
         item_choice = int(input('Choose item: ')) - 1
 
+        if item_choice == -1:
+            continue
 
+        item = player.items[item_choice]["item"]
 
+        player.items[item_choice]["quantity"] -= 1
 
+        if player.items[item_choice]["quantity"] == 0:
+            player.items.pop(item_choice)
+            print(f'{bcolors.WARNING}That was the last {item.name}!{bcolors.ENDC}')
+
+        if item.type == 'potion':
+            player.heal(item.prop)
+            print(f'{bcolors.OKGREEN}{formatting.NEWLINE}{item.name} heals for {item.prop} HP{bcolors.ENDC}')
+        elif item.type == 'elixir':
+            player.hp = player.maxhp
+            player.mp = player.maxmp
+            print(f'{bcolors.OKGREEN}{formatting.NEWLINE}{item.name} fully restores HP/MP{bcolors.ENDC}')
+        elif item.type == "attack":
+            enemy.take_damage(item.prop)
+            print(f'{bcolors.FAIL}{formatting.NEWLINE}{item.name} deals {item.prop} points of damage{bcolors.ENDC}')
 
     enemy_choice = 1
     enemy_dmg = enemy.generate_damage()
