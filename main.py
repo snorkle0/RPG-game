@@ -42,7 +42,7 @@ print(bcolors.FAIL + bcolors.BOLD + 'AN ENEMY ATTACKS!' + bcolors.ENDC)
 while running:
     print('==================')
 
-    print(f'{formatting.NEWLINE * 2}')
+    print(f'{formatting.NEWLINE}')
     print(f'NAME{formatting.WHITESPACE*21}HP{formatting.WHITESPACE*37}MP')
 
     for player in players:
