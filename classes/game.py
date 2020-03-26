@@ -16,10 +16,13 @@ class bcolors:
 class formatting:
     INDENT = '    '
     NEWLINE = '\n'
+    WHITESPACE = ' '
+    UNDERLINE = '_'
 
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic, items):
+    def __init__(self, name, hp, mp, atk, df, magic, items):
+        self.name = name
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -62,23 +65,29 @@ class Person:
 
     def choose_action(self):
         i = 1
-        print(f"{formatting.NEWLINE}{bcolors.OKBLUE}{bcolors.BOLD}Actions:{bcolors.ENDC}")
+        print(f'{formatting.NEWLINE}{bcolors.BOLD}{formatting.WHITESPACE*4}{self.name}:{bcolors.ENDC}')
+        print(f"{bcolors.OKBLUE}{bcolors.BOLD}{formatting.WHITESPACE*4}ACTIONS:{bcolors.ENDC}")
         for item in self.actions:
-            print(f'{formatting.INDENT}{i}. {item}')
+            print(f'{formatting.INDENT*2}{i}. {item}')
             i += 1
 
     def choose_magic(self):
         i = 1
-        print(f"{formatting.NEWLINE}{bcolors.OKBLUE}{bcolors.BOLD}MAGIC:{bcolors.ENDC}")
+        print(f"{formatting.NEWLINE}{bcolors.OKBLUE}{bcolors.BOLD}{formatting.WHITESPACE*4}MAGIC:{bcolors.ENDC}")
         for spell in self.magic:
-            print(f'{formatting.INDENT}{i}. {spell.name} (cost: {spell.cost})')
+            print(f'{formatting.INDENT*2}{i}. {spell.name} (cost: {spell.cost})')
             i += 1
 
     def choose_items(self):
         i = 1
-        print(f"{formatting.NEWLINE}{bcolors.OKGREEN}{bcolors.BOLD}ITEMS:{bcolors.ENDC}")
+        print(f"{formatting.NEWLINE}{bcolors.OKGREEN}{bcolors.BOLD}{formatting.WHITESPACE*4}ITEMS:{bcolors.ENDC}")
         for item in self.items:
-            print(f'{formatting.INDENT}{i}. {item["item"].name}: {item["item"].description} (x{item["quantity"]})')
+            print(f'{formatting.INDENT*2}{i}. {item["item"].name}: {item["item"].description} (x{item["quantity"]})')
             i += 1
 
+    def get_stats(self):
+        print(f'{formatting.WHITESPACE*26}{formatting.UNDERLINE*25}{formatting.WHITESPACE*13}{formatting.UNDERLINE*10}')
+        print(f'{bcolors.BOLD}{self.name}:        '
+              f'{self.hp}/{self.maxhp}    |{bcolors.OKGREEN}████████████            {bcolors.ENDC}|      '
+              f'{bcolors.BOLD}{self.mp}/{self.maxmp} |{bcolors.OKBLUE}██████████{bcolors.ENDC}|')
 
