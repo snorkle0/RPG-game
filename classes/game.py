@@ -106,8 +106,37 @@ class Person:
         while len(mp_bar) < 10:
             mp_bar += ' '
 
-        print(f'{formatting.WHITESPACE*26}{formatting.UNDERLINE*25}{formatting.WHITESPACE*14}{formatting.UNDERLINE*10}')
+        hp_string = f'{self.hp}/{self.maxhp}'
+        current_hp = ''
+
+        if len(hp_string) < 9:
+            decreased = 9 - len(hp_string)
+
+            while decreased > 0:
+                current_hp += ' '
+                decreased -= 1
+
+            current_hp += hp_string
+        else:
+            current_hp = hp_string
+
+        mp_string = f'{self.mp}/{self.maxmp}'
+        current_mp = ''
+
+        if len(mp_string) < 7:
+            decreased = 7 - len(mp_string)
+            while decreased > 0:
+                current_mp += " "
+                decreased -= 1
+
+            current_mp += mp_string
+
+        else:
+            current_mp = mp_string
+
+
+        print(f'{formatting.WHITESPACE*28}{formatting.UNDERLINE*25}{formatting.WHITESPACE*14}{formatting.UNDERLINE*10}')
         print(f'{bcolors.BOLD}{self.name}:        '
-              f'{self.hp}/{self.maxhp}    |{bcolors.OKGREEN}{hp_bar}{bcolors.ENDC}|      '
-              f'{bcolors.BOLD}{self.mp}/{self.maxmp} |{bcolors.OKBLUE}{mp_bar}{bcolors.ENDC}|')
+              f'{current_hp}    |{bcolors.OKGREEN}{hp_bar}{bcolors.ENDC}|      '
+              f'{current_mp} |{bcolors.OKBLUE}{mp_bar}{bcolors.ENDC}|')
 
