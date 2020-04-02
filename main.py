@@ -1,7 +1,7 @@
 from classes.game import Person, bcolors, formatting
 from classes.magic import Spell
 from classes.inventory import Item
-
+import random
 
 # Create Black Magic:
 fire = Spell('Fire', 10, 100, 'Black')
@@ -28,10 +28,10 @@ player_items = [{'item': potion, 'quantity': 15}, {'item': hipotion, 'quantity':
                 {'item': elixir, 'quantity': 5}, {'item': megaelixir, 'quantity': 1}, {'item': grenade, 'quantity': 10}]
 
 # Instantiate People:
-player1 = Person("Valos", 1200, 65, 60, 34, player_spells, player_items)
-player2 = Person("Nick ", 4000, 65, 60, 34, player_spells, player_items)
-player3 = Person("Robot", 4000, 65, 60, 34, player_spells, player_items)
-enemy = Person("Magus", 11200, 65, 120, 25, [], [])
+player1 = Person("Valos", 1200, 65, 150, 34, player_spells, player_items)
+player2 = Person("Nick ", 4000, 65, 200, 34, player_spells, player_items)
+player3 = Person("Robot", 4000, 65, 300, 34, player_spells, player_items)
+enemy = Person("Magus", 11200, 65, 600, 25, [], [])
 
 players = [player1, player2, player3]
 
@@ -109,20 +109,25 @@ while running:
                 player.heal(item.prop)
                 print(f'{bcolors.OKGREEN}{formatting.NEWLINE}{item.name} heals for {item.prop} HP{bcolors.ENDC}')
             elif item.type == 'elixir':
-                player.hp = player.maxhp
-                player.mp = player.maxmp
-                print(f'{bcolors.OKGREEN}{formatting.NEWLINE}{item.name} fully restores HP/MP{bcolors.ENDC}')
+
+                if item.name == 'megaelixir':
+                    for i in players:
+                        i.hp = i.maxhp
+                        i.mp = i.maxmp
+                        print (f'{bcolors.OKGREEN}{formatting.NEWLINE}{item.name}Party HP/MP has been fully restored.{bcolors.ENDC}')
+                else:
+                    player.hp = player.maxhp
+                    player.mp = player.maxmp
+                    print(f'{bcolors.OKGREEN}{formatting.NEWLINE}{item.name} fully restored HP/MP{bcolors.ENDC}')
             elif item.type == "attack":
                 enemy.take_damage(item.prop)
                 print(f'{bcolors.FAIL}{formatting.NEWLINE}{item.name} deals {item.prop} points of damage{bcolors.ENDC}')
 
     enemy_choice = 1
+    target = random.randrange(0, 3)
     enemy_dmg = enemy.generate_damage()
-    player1.take_damage(enemy_dmg)
+    players[target].take_damage(enemy_dmg)
     print(f'Enemy attacks for {enemy_dmg}')
-
-    print('--------------------------------------------------')
-    print(f'Enemy HP: {bcolors.FAIL} {enemy.get_hp()} / {enemy.get_max_hp()} {bcolors.ENDC} {formatting.NEWLINE}')
 
     if enemy.get_hp() == 0:
         print(f'{bcolors.OKGREEN}You win!{bcolors.ENDC}')
