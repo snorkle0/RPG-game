@@ -31,7 +31,7 @@ player_items = [{'item': potion, 'quantity': 15}, {'item': hipotion, 'quantity':
 player1 = Person("Valos", 1200, 65, 60, 34, player_spells, player_items)
 player2 = Person("Nick ", 4000, 65, 60, 34, player_spells, player_items)
 player3 = Person("Robot", 4000, 65, 60, 34, player_spells, player_items)
-enemy = Person("Magus", 1200, 65, 120, 25, [], [])
+enemy = Person("Magus", 11200, 65, 120, 25, [], [])
 
 players = [player1, player2, player3]
 
@@ -49,6 +49,8 @@ while running:
         player.get_stats()
 
     print(f'{formatting.NEWLINE}')
+
+    enemy.get_enemy_stats()
 
     for player in players:
         player.choose_action()

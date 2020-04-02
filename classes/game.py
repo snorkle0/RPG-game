@@ -85,6 +85,37 @@ class Person:
             print(f'{formatting.INDENT*2}{i}. {item["item"].name}: {item["item"].description} (x{item["quantity"]})')
             i += 1
 
+    def get_enemy_stats(self):
+        hp_bar = ''
+        bar_ticks = (self.hp / self.maxhp) * 100 / 2
+
+        while bar_ticks > 0:
+            hp_bar += '█'
+            bar_ticks -= 1
+
+        while len(hp_bar) < 50:
+            hp_bar += ' '
+
+        hp_string = f'{self.hp}/{self.maxhp}'
+        current_hp = ''
+
+        if len(hp_string) < 11:
+            decreased = 11 - len(hp_string)
+
+            while decreased > 0:
+                current_hp += ' '
+                decreased -= 1
+
+            current_hp += hp_string
+        else:
+            current_hp = hp_string
+
+        print(
+            f'{formatting.WHITESPACE * 27}{formatting.UNDERLINE * 50}')
+        print(f'{bcolors.BOLD}{self.name}:{formatting.WHITESPACE * 5}'
+              f'{current_hp}{formatting.WHITESPACE * 4}|{bcolors.FAIL}{hp_bar}{bcolors.ENDC}|'
+              f'{formatting.WHITESPACE * 6}')
+
     def get_stats(self):
         hp_bar = ""
         bar_ticks = (self.hp / self.maxhp) * 100 / 4
@@ -134,8 +165,8 @@ class Person:
         else:
             current_mp = mp_string
 
-
-        print(f'{formatting.WHITESPACE*28}{formatting.UNDERLINE*25}{formatting.WHITESPACE*14}{formatting.UNDERLINE*10}')
+        print(f'{formatting.WHITESPACE*28}{formatting.UNDERLINE*25}{formatting.WHITESPACE*16}'
+              f'{formatting.UNDERLINE*10}')
         print(f'{bcolors.BOLD}{self.name}:        '
               f'{current_hp}    |{bcolors.OKGREEN}{hp_bar}{bcolors.ENDC}|      '
               f'{current_mp} |{bcolors.OKBLUE}{mp_bar}{bcolors.ENDC}|')
